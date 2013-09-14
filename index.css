@@ -13,7 +13,8 @@
   border: 1px solid #000;
 }
 
-.card.selected {
+.card.selected,
+.card.ng-click-active {
   background-color: #E0FDFF;
 }
 
