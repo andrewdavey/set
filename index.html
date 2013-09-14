@@ -2,8 +2,30 @@
 <html>
   <head>
     <title>Set</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="index.css" rel="stylesheet" />
   </head>
-  <body>
+  <body ng-app="app">
     <h1>Set!</h1>
+
+    <div ng-controller="GameController">
+      <ul class="drawn-cards">
+        <li ng-repeat="card in table.drawnCards"
+            class="card"
+            ng-class="{ selected: isCardSelected(card) }"
+            ng-click="cardClicked(card)">
+            {{card.toString()}}
+        </li>
+      </ul>
+
+      <div ng-show="invalidSet">
+        Not a set!
+      </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
+    <script src="set.js"></script>
+    <script src="ui.js"></script>
   </body>
 </html>
