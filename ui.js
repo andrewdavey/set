@@ -1,8 +1,8 @@
 var app = angular.module("app", ["ngTouch"]);
 
-app.controller("GameController", [ "$scope", GameController ]);
+app.controller("GameController", [ "$scope", "$timeout", GameController ]);
 
-function GameController($scope) {
+function GameController($scope, $timeout) {
   var deck = new setGame.Deck();
   var selectedCards = [];
 
@@ -18,7 +18,7 @@ function GameController($scope) {
       if (table.foundSet(selectedCards)) {
 
       } else {
-        $scope.invalidSet = true;
+        invalidSet();
       }
       deselectAllCards();
     }
@@ -42,4 +42,20 @@ function GameController($scope) {
   function deselectAllCards() {
     selectedCards = [];
   }
+
+  function invalidSet() {
+    $scope.invalidSet = true;
+    $timeout(function() { $scope.invalidSet = false; }, 500);
+  }
 }
+
+
+app.directive("svgContent", function() {
+  return {
+    link: function($scope, element, attributes) {
+      $scope.$watch(attributes.svgContent, function(content) {
+        element[0].appendChild(content);
+      });
+    }
+  };
+});
