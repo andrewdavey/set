@@ -116,7 +116,7 @@ var setGame = (function() {
       }
       select(this.drawCard());
     }
-    return selectedCards.slice(0, 12);
+    return shuffle(selectedCards.slice(0, 12));
   };
 
   Deck.prototype.shuffleCards = function() {

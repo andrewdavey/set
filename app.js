@@ -47,7 +47,7 @@ function PlayController($scope, $routeParams, $timeout) {
       selectedCardIds[card.id] = true;
       selectedCount++;
 
-    } else {
+    } else if (selectedCount === 2) {
       selectedCardIds[card.id] = true;
       var selectedCards = cards.filter(function(c) { return selectedCardIds[c.id]; });
 
@@ -77,7 +77,7 @@ function PlayController($scope, $routeParams, $timeout) {
         // Clear selection
         selectedCardIds = {};
         selectedCount = 0;
-      });
+      }, 100);
     }
   };
 
