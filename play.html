@@ -1,0 +1,13 @@
+<p>
+Found {{found}} out of {{total}} sets
+</p>
+
+<ul class="drawn-cards">
+  <li ng-repeat="card in cards"
+  class="card"
+  ng-class="{ selected: isCardSelected(card) }"
+  ng-click="cardClicked(card)">
+    <svg width="100%" height="100%" viewBox="-15 -15 1080 730" xmlns="http://www.w3.org/2000/svg" svg-content="card.svg">
+    </svg>
+  </li>
+</ul>

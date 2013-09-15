@@ -23,6 +23,11 @@ html {
   background: #fff;
 }
 
+.card.selected {
+  position: relative;
+  top: -10px;
+}
+
 .card.selected svg,
 .card.ng-click-active svg {
   background-color: #E0FDFF;

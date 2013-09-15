@@ -6,11 +6,12 @@ var setGame = (function() {
     this.shading = shading;
     this.symbol = symbol;
     this.number = number;
+    this.id = [color, shading, symbol, number].join("");
     this.svg = this.toSVG();
   };
 
   Card.prototype.toString = function() {
-    return [this.color, this.shading, this.symbol, this.number].join("");
+    return this.id;
   };
 
   Card.svgSymbols = {
@@ -70,7 +71,8 @@ var setGame = (function() {
   };
 
   // A deck of set cards
-  var Deck = function() {
+  var Deck = function(randomSeed) {
+    Math.seedrandom(randomSeed);
     this.createCards();
     this.shuffleCards();
   };
@@ -90,6 +92,33 @@ var setGame = (function() {
     }
   };
 
+  Deck.prototype.getCards = function() {
+    var selectedIds = {};
+    var selectedCards = [];
+
+    function select(card) {
+      selectedCards.unshift(card);
+      selectedIds[card.id] = true;
+    }
+
+    select(this.drawCard());
+    select(this.drawCard());
+
+    while (selectedCards.length < 12) {
+      var card1 = selectedCards[0];
+      var card2 = selectedCards[1];
+
+      var card3Id = this.cardIdThatCompletesSet(card1, card2);
+      if (!selectedIds[card3Id]) {
+        var card3 = this.cards.filter(function(c) { return c.id === card3Id; })[0];
+        this.cards.splice(this.cards.indexOf(card3), 1);
+        select(card3);
+      }
+      select(this.drawCard());
+    }
+    return selectedCards.slice(0, 12);
+  };
+
   Deck.prototype.shuffleCards = function() {
     shuffle(this.cards);
   };
@@ -102,6 +131,30 @@ var setGame = (function() {
     return this.cards.length;
   };
 
+  Deck.prototype.find = function(cardId) {
+    return this.cards.filter(function(card) { return card.id === cardId; })[0];
+  };
+
+  Deck.prototype.cardIdThatCompletesSet = function(card1, card2) {
+    var getters = [getColor, getShading, getSymbol, getNumber];
+    var values1 = getters.map(function(get) { return get(card1); });
+    var values2 = getters.map(function(get) { return get(card2); });
+    var values3 = [];
+    for (var i = 0; i < 4; i++) {
+      var value1 = values1[i], value2 = values2[i];
+      if (value1 === value2) {
+        values3[i] = value1;
+      } else if ((value1 === 0 && value2 === 1) || (value1 === 1 && value2 === 0)){
+        values3[i] = 2;
+      } else if ((value1 === 0 && value2 === 2) || (value1 === 2 && value2 === 0)){
+        values3[i] = 1;
+      } else {
+        values3[i] = 0;
+      }
+    }
+    var cardId = values3.join("");
+    return cardId;
+  };
 
   // The game table where cards are placed
   var Table = function(deck) {
@@ -139,16 +192,7 @@ var setGame = (function() {
   };
 
   Table.prototype.findSets = function() {
-    var cards = this.drawnCards;
-    var sets = [];
-    cards.forEach(function(a, aIndex) {
-      cards.slice(aIndex+1).forEach(function(b, bIndex) {
-        cards.slice(aIndex + bIndex + 1).forEach(function(c) {
-          if (isSet([a,b,c])) sets.push([a,b,c]);
-        });
-      });
-    });
-    return sets;
+    return findSets(this.drawnCards);
   };
 
 
@@ -178,11 +222,24 @@ var setGame = (function() {
            (allSameNumber || allDifferentNumber);
   }
 
+  function findSets(cards) {
+    var sets = [];
+    cards.forEach(function(a, aIndex) {
+      cards.slice(aIndex+1).forEach(function(b, bIndex) {
+        cards.slice(aIndex + bIndex + 1).forEach(function(c) {
+          if (isSet([a,b,c])) sets.push([a,b,c]);
+        });
+      });
+    });
+    return sets;
+  }
+
   return {
     Table: Table,
     Deck: Deck,
     Card: Card,
-    isSet: isSet
+    isSet: isSet,
+    findSets: findSets
   };
 
   function shuffle(array) {
@@ -208,7 +265,7 @@ var setGame = (function() {
 
   function allEqual(array) {
     for (var i = 1; i < array.length; i++) {
-      if (array[i-1] !== array[1]) return false;
+      if (array[i-1] !== array[i]) return false;
     }
     return true;
   }

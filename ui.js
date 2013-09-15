@@ -8,6 +8,9 @@ function GameController($scope, $timeout) {
 
   var table = $scope.table = new setGame.Table(deck);
 
+  $scope.totalSets = table.findSets().length;
+  $scope.found = 0;
+
   $scope.cardClicked = function(card) {
     if (isCardSelected(card)) {
       deselectCard(card);
@@ -15,8 +18,8 @@ function GameController($scope, $timeout) {
       selectCard(card);
     } else if (selectedCards.length === 2) {
       selectCard(card);
-      if (table.foundSet(selectedCards)) {
-
+      if (setGame.isSet(selectedCards)) {
+        $scope.found++;
       } else {
         invalidSet();
       }
@@ -59,3 +62,11 @@ app.directive("svgContent", function() {
     }
   };
 });
+
+/*
+var cards = [];
+var deck = new setGame.Deck();
+var a = deck.drawCard();
+var b = deck.drawCard();
+var c = deck.drawCardThatCompletesSet(a,b);
+*/

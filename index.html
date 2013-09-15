@@ -6,7 +6,11 @@
     <link href="index.css" rel="stylesheet" />
   </head>
   <body ng-app="app">
-    <div ng-controller="GameController">
+    <div ng-controller="AppController" ng-view>
+    </div>
+
+    <!--
+      <p>Found {{found}} out of {{totalSets}} sets</p>
       <ul class="drawn-cards">
         <li ng-repeat="card in table.drawnCards"
             class="card"
@@ -21,10 +25,13 @@
         Not a set!
       </div>
     </div>
+    -->
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>    
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
+    <script src="seedrandom.js"></script>
     <script src="set.js"></script>
-    <script src="ui.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
