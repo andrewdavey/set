@@ -15,6 +15,11 @@ html {
   width: 25%;
   height: 200px;
   padding: 30px;
+
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
 }
 
 .card svg {
