@@ -33,6 +33,17 @@ var setGame = (function() {
   Card.prototype.toSVG = function() {
     var svgNS = "http://www.w3.org/2000/svg";
     var group = document.createElementNS(svgNS, "g");
+
+    var back = document.createElementNS(svgNS, "rect");
+    back.setAttribute("x", 0);
+
+    var xOffset;
+    switch (this.number) {
+      case 0: xOffset = 380; break;
+      case 1: xOffset = 200; break;
+      case 2: xOffset = 30; break;
+    }
+
     for (var i = 0; i <= this.number; i++) {
       var path = document.createElementNS(svgNS, "path");
       
@@ -51,7 +62,7 @@ var setGame = (function() {
       }
       path.setAttribute("d", pathData);
 
-      path.setAttribute("transform", "translate(" + (i * 340 + 30) + ")");
+      path.setAttribute("transform", "translate(" + (i * 340 + xOffset) + ",50)");
 
       group.appendChild(path);
     }

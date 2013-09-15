@@ -1,3 +1,7 @@
+html {
+  background-color: #efefef;
+}
+
 .drawn-cards {
   list-style-type: none;
   padding: 0;
@@ -10,11 +14,17 @@
   box-sizing: border-box;
   width: 25%;
   height: 200px;
-  border: 1px solid #000;
+  padding: 30px;
 }
 
-.card.selected,
-.card.ng-click-active {
+.card svg {
+  border: 2px solid #222;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.card.selected svg,
+.card.ng-click-active svg {
   background-color: #E0FDFF;
 }
 
