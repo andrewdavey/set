@@ -63,7 +63,12 @@ function PlayController($scope, $routeParams, $timeout) {
             alert("Already found that set");
           } else {
             set.found = true;
-            alert("SET!");
+            $scope.found++;
+            if ($scope.found === $scope.total) {
+              alert("You found all the sets!");
+            } else {
+              alert("SET!");
+            }
           }
         } else {
           alert("Not a set :(");
