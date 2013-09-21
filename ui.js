@@ -63,6 +63,7 @@ app.directive("svgContent", function() {
   };
 });
 
+
 /*
 var cards = [];
 var deck = new setGame.Deck();

@@ -96,3 +96,18 @@ app.directive("svgContent", function() {
   };
 });
 
+app.directive("ngTouch", function() {
+  return {
+    link: function(scope, element, attrs) {
+      var eventName = ("ontouchstart" in document.documentElement) ? "touchstart" : "click";
+
+      element.on(eventName, trigger);
+      
+      scope.$on("$destroy", function() { element.off(eventName, trigger); });
+
+      function trigger() {
+        scope.$apply(attrs.ngTouch);
+      };
+    }
+  };
+});

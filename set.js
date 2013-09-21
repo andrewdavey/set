@@ -36,7 +36,17 @@ var setGame = (function() {
     var group = document.createElementNS(svgNS, "g");
 
     var back = document.createElementNS(svgNS, "rect");
+    back.setAttribute("class", "card-rect");
     back.setAttribute("x", 0);
+    back.setAttribute("y", 0);
+    back.setAttribute("width", 1050);
+    back.setAttribute("height", 700);
+    back.setAttribute("fill", "white");
+    back.setAttribute("stroke", "black");
+    back.setAttribute("stroke-width", "10");
+    back.setAttribute("rx", 30);
+    back.setAttribute("ry", 30);
+    group.appendChild(back);
 
     var xOffset;
     switch (this.number) {
