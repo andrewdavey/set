@@ -4,15 +4,24 @@
     <title>Set</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="index.css" rel="stylesheet" />
+    <link href="play/play.css" rel="stylesheet" />
   </head>
-  <body ng-app="app">
-    <div ng-controller="AppController" ng-view class="container">
-    </div>
+  <body ng-app="app" ng-controller="AppController" >
+
+    <div ng-view class="view-container"></div>
+
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>    
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
-    <script src="seedrandom.js"></script>
-    <script src="set.js"></script>
+
+    <script src="util/seedrandom.js"></script>
+    <script src="util/shuffle.js"></script>
+
     <script src="app.js"></script>
+    <script src="cards.js"></script>
+    <script src="start/StartController.js"></script>
+    <script src="play/PlayController.js"></script>
+    <script src="play/setCardsDirective.js"></script>
+    <script src="won/WonController.js"></script>
   </body>
 </html>
