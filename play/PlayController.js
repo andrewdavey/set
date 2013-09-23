@@ -2,8 +2,7 @@ app.controller("PlayController", ["$scope", "$routeParams", "$timeout", "set", f
 
   Math.seedrandom($routeParams.game);
   
-  var deck = set.createDeck().shuffle();
-  var cards = deck.slice(0, 12);
+  var cards = set.generateGameCards();
   var sets = set.findSets(cards);
   var found = {};
 
